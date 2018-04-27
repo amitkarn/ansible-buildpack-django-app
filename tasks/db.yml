@@ -1,0 +1,7 @@
+---
+- import_role:
+    name: Stouts.memcached
+- include: db/postgresql.yml
+- include: db/rabbitmq.yml
+  when: django_enable_celery
+

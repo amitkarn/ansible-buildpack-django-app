@@ -1,0 +1,9 @@
+---
+- include: workers/users_and_groups.yml
+- include: workers/source_code.yml
+- include: workers/python.yml
+- include: workers/django_manage.yml
+- include: workers/web.yml
+- include: workers/gunicorn.yml
+- include: workers/celery.yml
+  when: django_enable_celery
