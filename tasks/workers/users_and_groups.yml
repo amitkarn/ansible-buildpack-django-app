@@ -27,5 +27,4 @@
     - "{{ application_www_path }}/media"
     - "{{ application_config_path }}"
     - "{{ application_config_path }}/ssl"
-  tags: er
 
