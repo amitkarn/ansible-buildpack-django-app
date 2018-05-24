@@ -52,3 +52,5 @@ rabbitmq_vhost: "{{ rabbitmq_user }}"
 
 celery_num_workers: 3
 celery_application_name: "{{ application_name }}_celery"
+
+nginx_template_path: nginx.j2
