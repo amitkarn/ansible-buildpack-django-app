@@ -33,11 +33,9 @@
   args:
     creates: "{{ application_config_path }}/ssl/live/{{ application_domain }}/"
 
-- name: Ensure a cron job to auto-renew the cert exists
-  cron: name="daily auto renew {{ application_name }} cert"
-        special_time=daily
-        job="/usr/local/bin/certbot-auto renew  --noninteractive --agree-tos --webroot --no-self-upgrade --quiet  --config-dir {{ application_config_path }}/ssl/ --logs-dir {{ application_log_path }} -w {{ application_www_path }}"
-        state=present
+- template: src=ssl-renew.sh dest=/usr/local/certbot-renew-all/enabled/{{ application_user }}.sh mode=0755 owner={{ application_user }} group={{ application_group }}
+  tags:
+  - certbot
 
 - file: dest={{ application_config_path }}/ssl owner={{ application_user }} group={{ application_group }} recurse=yes
 
