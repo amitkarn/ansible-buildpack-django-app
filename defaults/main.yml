@@ -38,6 +38,7 @@ combined_environment_variables: "{{ default_environment_variables | combine(envi
 django_manage_path: "{{ application_source_path }}/{{ django_application_name }}"
 django_settings_file: "{{ application_source_path }}/{{ django_application_name }}/{{ django_application_name }}/settings.py"
 django_enable_celery: no
+django_enable_celery_beat: no
 
 ansible_python_interpreter: /usr/bin/python3
 base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"
@@ -52,5 +53,6 @@ rabbitmq_vhost: "{{ rabbitmq_user }}"
 
 celery_num_workers: 3
 celery_application_name: "{{ application_name }}_celery"
+
 
 nginx_template_path: nginx.j2
