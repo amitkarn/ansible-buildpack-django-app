@@ -18,4 +18,6 @@
 
 - name: Restart the Supervisor config files
   supervisorctl: name={{ celery_application_name }} state=restarted
-  tags: celery
+  tags:
+    - celery
+    - deploy
