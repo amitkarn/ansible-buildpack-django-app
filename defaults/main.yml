@@ -40,6 +40,8 @@ django_settings_file: "{{ application_source_path }}/{{ django_application_name 
 django_enable_celery: no
 django_enable_celery_beat: no
 
+geodjango_enabled: no
+
 ansible_python_interpreter: /usr/bin/python3
 base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"
 db_domain: "{{ groups['db'].0 }}"

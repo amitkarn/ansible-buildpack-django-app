@@ -1,5 +1,7 @@
 - import_role:
     name: cypreess.postgres
+  vars:
+    postgis_enabled: "{{ geodjango_enabled }}"
 
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started enabled=yes
@@ -16,6 +18,16 @@
                  lc_ctype='en_US.UTF-8'
                  template='template0'
                  state=present
+
+- name: Install postgis extension
+  become: yes
+  become_user: postgres
+  postgresql_ext:
+    name: postgis
+    db: "{{ application_db_name }}"
+  when: geodjango_enabled
+  tags:
+    - geodjango
 
 - name: Ensure user has access to the database
   become: yes
