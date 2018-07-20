@@ -21,6 +21,8 @@ application_templates_500: "{{ application_source_path }}/{{ django_application_
 python_venv_path: "{{ application_home }}/python-venv"
 git_branch: master
 
+django_enable_channels: no
+
 default_environment_variables:
   DATABASE_URL: "postgres://{{application_db_user}}:{{ application_db_password }}@{{ db_domain }}/{{ application_db_name }}"
   STATIC_ROOT: "{{ application_www_path }}/static"
@@ -28,7 +30,8 @@ default_environment_variables:
   BROKER_URL: "{{ 'amqp://' + rabbitmq_user + ':' + rabbitmq_password + '@' + db_domain + ':5672/' + rabbitmq_vhost  if django_enable_celery else '' }}"
   MEMCACHED_LOCATION: "{{ db_domain }}"
   MEMCACHED_PREFIX: "{{ application_name }}"
-
+  REDIS_URL: "{{ 'redis://' ~ db_domain ~ ':' ~ channels_redis_port ~ '/'  if django_enable_channels else '' }}"
+  REDIS_PREFIX: "{{ application_db_name }}_"
 
 environment_variables: {}
 
@@ -58,3 +61,7 @@ celery_application_name: "{{ application_name }}_celery"
 
 
 nginx_template_path: nginx.j2
+
+
+channels_redis_bind: 0.0.0.0
+channels_redis_port: 6379
